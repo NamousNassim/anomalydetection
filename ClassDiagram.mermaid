@@ -1,0 +1,64 @@
+classDiagram
+    class Vehicle {
+        -Long id
+        -String registrationNumber
+        -VehicleType type
+        -String brand
+        -String model
+        +getLocation()
+        +updateLocation()
+    }
+
+    class Location {
+        -Long id
+        -Double latitude
+        -Double longitude
+        -LocalDateTime timestamp
+        -Long vehicleId
+        -Double speed
+        +calculateDistance()
+    }
+
+    class Route {
+        -Long id
+        -Long vehicleId
+        -LocalDateTime startTime
+        -LocalDateTime endTime
+        -RouteStatus status
+        +analyzeRoute()
+    }
+
+    class Alert {
+        -Long id
+        -AlertType type
+        -String description
+        -LocalDateTime timestamp
+        -Long vehicleId
+        -Severity severity
+        +notifyStakeholders()
+    }
+
+    class AnomalyDetection {
+        -Long id
+        -Long routeId
+        -AnomalyType type
+        -Double confidence
+        -LocalDateTime detectionTime
+        +detectAnomaly()
+        +validateAnomaly()
+    }
+
+    class Driver {
+        -Long id
+        -String firstName
+        -String lastName
+        -String licenseNumber
+        -DriverStatus status
+        +assignVehicle()
+    }
+
+    Vehicle "1" -- "n" Location
+    Vehicle "1" -- "n" Route
+    Route "1" -- "n" AnomalyDetection
+    Vehicle "1" -- "1" Driver
+    AnomalyDetection "1" -- "n" Alert
